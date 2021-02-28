@@ -1,10 +1,21 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { GraphQLModule } from '@nestjs/graphql';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { SalesModule } from './sales/sales.module';
+import databaseConfigService from './config/database.config';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    TypeOrmModule.forRoot({
+      ...databaseConfigService.getTypeormConfig(),
+      autoLoadEntities: true,
+    }),
+    GraphQLModule.forRoot({
+      autoSchemaFile: true,
+      sortSchema: true,
+      playground: true,
+    }),
+    SalesModule,
+  ],
 })
 export class AppModule {}
