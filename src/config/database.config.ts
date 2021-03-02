@@ -11,7 +11,9 @@ class DatabaseConfigService {
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
-      entities: [resolve(__dirname, '..', '**', 'models', '*.model.ts')],
+      entities: [
+        resolve(__dirname, '..', 'domain', '**', 'models', '*.model.ts'),
+      ],
       migrations: [
         resolve(__dirname, '..', 'shared', 'database', 'migrations', '*.ts'),
       ],
